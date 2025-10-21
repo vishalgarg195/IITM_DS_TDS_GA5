@@ -2,9 +2,11 @@ name: Daily Commit Workflow
 
 on:
   schedule:
-    # Runs every day at 05:30 UTC (adjust minute/hour if you prefer)
-    - cron: "30 5 * * *"
+    - cron: "30 5 * * *"  # runs daily at 05:30 UTC
   workflow_dispatch:  # allows manual trigger
+
+permissions:
+  contents: write   # <== this line is CRUCIAL for allowing push
 
 jobs:
   daily_commit_job:
@@ -14,7 +16,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step with your IITM email in its name (required)
       - name: Add daily commit by 23ds2000079@ds.study.iitm.ac.in
         run: |
           echo "Last run: $(date -u)" > last_run.txt
